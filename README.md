@@ -27,6 +27,8 @@ $env:THE_ODDS_API_KEY="votre_cle_the_odds_api"
 ```
 
 Ne jamais committer les vraies cles. Le fichier `.env.example` contient uniquement les noms attendus.
+Les cles doivent rester dans les variables d'environnement locales ou dans un gestionnaire de secrets.
+Les fichiers `.env`, `*.key`, `*.pem`, `secrets/` et `.secrets/` sont ignores par Git.
 
 Sources :
 

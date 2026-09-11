@@ -8,6 +8,11 @@ __pycache__/
 .env
 .env.*
 !.env.example
+*.key
+*.pem
+secrets/
+.secrets/
+.envrc
 
 # Runtime output
 *.log
