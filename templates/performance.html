@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Simulation Lab</title>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;600;700&amp;family=Inter:wght@400;500;700&amp;family=JetBrains+Mono:wght@500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Config -->
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            "colors": {
+                    "primary-container": "#10b981",
+                    "on-secondary-container": "#e6ecff",
+                    "outline-variant": "#3c4a42",
+                    "secondary-container": "#0566d9",
+                    "surface-container": "#171f33",
+                    "inverse-surface": "#dae2fd",
+                    "on-tertiary": "#472a00",
+                    "surface-container-low": "#131b2e",
+                    "on-surface-variant": "#bbcabf",
+                    "surface-container-highest": "#2d3449",
+                    "surface-dim": "#0b1326",
+                    "primary": "#4edea3",
+                    "on-secondary": "#002e6a",
+                    "on-surface": "#dae2fd",
+                    "primary-fixed": "#6ffbbe",
+                    "surface-bright": "#31394d",
+                    "secondary": "#adc6ff",
+                    "primary-fixed-dim": "#4edea3",
+                    "on-secondary-fixed-variant": "#004395",
+                    "tertiary-container": "#e29100",
+                    "on-primary": "#003824",
+                    "background": "#0b1326",
+                    "surface-container-high": "#222a3d",
+                    "on-error": "#690005",
+                    "inverse-on-surface": "#283044",
+                    "error-container": "#93000a",
+                    "on-error-container": "#ffdad6",
+                    "surface-tint": "#4edea3",
+                    "inverse-primary": "#006c49",
+                    "on-tertiary-fixed-variant": "#653e00",
+                    "error": "#ffb4ab",
+                    "tertiary-fixed": "#ffddb8",
+                    "on-primary-container": "#00422b",
+                    "surface-variant": "#2d3449",
+                    "on-primary-fixed-variant": "#005236",
+                    "on-primary-fixed": "#002113",
+                    "on-tertiary-fixed": "#2a1700",
+                    "on-secondary-fixed": "#001a42",
+                    "secondary-fixed": "#d8e2ff",
+                    "surface": "#0b1326",
+                    "surface-container-lowest": "#060e20",
+                    "outline": "#86948a",
+                    "tertiary-fixed-dim": "#ffb95f",
+                    "secondary-fixed-dim": "#adc6ff",
+                    "on-tertiary-container": "#523200",
+                    "tertiary": "#ffb95f",
+                    "on-background": "#dae2fd"
+            },
+            "borderRadius": {
+                    "DEFAULT": "0.125rem",
+                    "lg": "0.25rem",
+                    "xl": "0.5rem",
+                    "full": "0.75rem"
+            },
+            "spacing": {
+                    "stack_gap_sm": "8px",
+                    "gutter": "16px",
+                    "stack_gap_md": "16px",
+                    "slip_panel_width": "320px",
+                    "container_padding": "24px",
+                    "sidebar_width": "240px"
+            },
+            "fontFamily": {
+                    "display-lg": ["Geist"],
+                    "body-base": ["Inter"],
+                    "body-sm": ["Inter"],
+                    "label-caps": ["Inter"],
+                    "data-mono": ["JetBrains Mono"],
+                    "headline-md": ["Geist"],
+                    "data-mono-lg": ["JetBrains Mono"]
+            },
+            "fontSize": {
+                    "display-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                    "body-base": ["14px", {"lineHeight": "20px", "fontWeight": "400"}],
+                    "body-sm": ["12px", {"lineHeight": "16px", "fontWeight": "400"}],
+                    "label-caps": ["11px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "700"}],
+                    "data-mono": ["14px", {"lineHeight": "20px", "letterSpacing": "-0.01em", "fontWeight": "500"}],
+                    "headline-md": ["24px", {"lineHeight": "32px", "letterSpacing": "-0.01em", "fontWeight": "600"}],
+                    "data-mono-lg": ["18px", {"lineHeight": "24px", "fontWeight": "600"}]
+            }
+          },
+        },
+      }
+    </script>
+<style>
+        /* Pulse effect for simulation mode */
+        @keyframes sim-pulse {
+            0%, 100% { box-shadow: inset 0 0 0px 1px rgba(173, 198, 255, 0.1); }
+            50% { box-shadow: inset 0 0 15px 1px rgba(173, 198, 255, 0.3); }
+        }
+        .sim-glow {
+            animation: sim-pulse 4s ease-in-out infinite;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background h-screen w-screen overflow-hidden font-body-base antialiased">
+<!-- Global Simulation Wrapper with Electric Blue Glow -->
+<div class="h-full w-full flex flex-col sim-glow ring-1 ring-secondary/30 relative">
+<!-- TopAppBar (Based on JSON) -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface-container-low border-b border-secondary/40 shadow-[0_4px_12px_rgba(173,198,255,0.05)]">
+<!-- Search & Brand -->
+<div class="flex items-center gap-6">
+<!-- Search Icon placeholder representing 'search_bar: on_left' logic context -->
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">search</span>
+</button>
+<div class="flex items-center gap-3">
+<h1 class="font-display-lg text-display-lg font-bold text-primary tracking-tighter">ALPHA BOT</h1>
+<!-- Simulation State Indicator -->
+<div class="flex items-center gap-1.5 px-2 py-0.5 rounded border border-secondary text-secondary bg-secondary/10">
+<span class="material-symbols-outlined text-[14px]">science</span>
+<span class="font-label-caps text-label-caps uppercase">SIMULATION MODE: SANDBOX</span>
+</div>
+</div>
+</div>
+<!-- Navigation Links -->
+<nav class="flex items-center gap-8">
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors px-3 py-1 rounded" href="#">Markets</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors px-3 py-1 rounded" href="#">Liquidity</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors px-3 py-1 rounded" href="#">Volatility</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<button class="px-4 py-2 rounded font-body-base text-body-base font-medium border border-outline hover:bg-surface-container-high transition-colors">Pause Bot</button>
+<button class="px-4 py-2 rounded font-body-base text-body-base font-medium bg-primary text-on-primary hover:bg-primary-container scale-95 active:scale-90 transition-transform">Execute Trade</button>
+<div class="flex items-center gap-2 border-l border-outline-variant pl-4 ml-2">
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-full hover:bg-surface-container-high"><span class="material-symbols-outlined">notifications</span></button>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors rounded-full hover:bg-surface-container-high"><span class="material-symbols-outlined">account_balance_wallet</span></button>
+<!-- Profile Avatar -->
+<div class="w-8 h-8 rounded-full bg-surface-container-highest border border-outline flex items-center justify-center overflow-hidden">
+<img class="w-full h-full object-cover" data-alt="A minimalist, futuristic user avatar profile picture, utilizing high contrast geometric shapes in dark slate and vibrant emerald green, professional digital aesthetic, clean studio lighting." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0J5MDHook3M2znt89Bo-hc1Oh2VrEi5mQ64Ld7E4fEEznB3my2Bcp1zkoYyCheFA2JRBgRa6Oc37G6rUVwsiktTqCVU0oRJ56JQf0S-P790D-3EVGfHDJ7gQZHt-2H_-hn9X04GjfGP1gnTtIEtmGJjS8B-aEb2m1Er1lHOwPrbNNzhOr3sbY0IXV-QN1DzrX_fxWQsfJ9WHYmp7LjM5zkCT4VhH7lGANY2g-lgOKAM6-jTo4L8jI"/>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Layout Canvas -->
+<div class="flex flex-1 pt-16 overflow-hidden relative z-0">
+<!-- SideNavBar (Based on JSON) -->
+<aside class="fixed left-0 top-16 bottom-0 w-sidebar_width z-40 flex flex-col py-stack_gap_md bg-surface-container border-r border-outline-variant">
+<!-- Header -->
+<div class="px-4 mb-6">
+<div class="flex items-center gap-3 mb-4">
+<div class="w-10 h-10 rounded bg-secondary-container/20 flex items-center justify-center border border-secondary/30">
+<span class="material-symbols-outlined text-secondary">memory</span>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant">System Status Icon</div>
+<div class="font-body-base text-body-base font-bold text-on-surface">STRAT-01</div>
+<div class="font-body-sm text-body-sm text-secondary">Live Engine</div>
+</div>
+</div>
+<button class="w-full py-2 px-4 rounded bg-surface-container-highest hover:bg-surface-bright text-on-surface border border-outline transition-all flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-[18px]">add</span>
+                        New Strategy
+                    </button>
+</div>
+<!-- Tabs -->
+<nav class="flex-1 flex flex-col gap-1">
+<a class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-3 flex items-center gap-3 rounded-lg hover:bg-surface-container-highest transition-all" href="/">
+<span class="material-symbols-outlined">dashboard</span>
+<span>Dashboard</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-3 flex items-center gap-3 rounded-lg hover:bg-surface-container-highest transition-all" href="/recherche">
+<span class="material-symbols-outlined">explore</span>
+<span>Discovery</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-3 flex items-center gap-3 rounded-lg hover:bg-surface-container-highest transition-all" href="/sandbox">
+<span class="material-symbols-outlined">science</span>
+<span>Simulation Lab</span>
+</a>
+<!-- ACTIVE TAB: Performance -->
+<a class="bg-secondary-container/20 text-secondary border border-secondary/30 rounded-xl mx-2 px-4 py-3 flex items-center gap-3 font-medium translate-x-1 duration-200" href="/performance">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">monitoring</span>
+<span>Performance</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-3 flex items-center gap-3 rounded-lg hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span>Settings</span>
+</a>
+</nav>
+<!-- Footer Tabs -->
+<div class="mt-auto flex flex-col gap-1 border-t border-outline-variant pt-4">
+<a class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-2 flex items-center gap-3 rounded-lg hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">help</span>
+<span class="font-body-sm text-body-sm">Docs</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface mx-2 px-4 py-2 flex items-center gap-3 rounded-lg hover:bg-surface-container-highest transition-all" href="#">
+<span class="material-symbols-outlined text-[20px]">contact_support</span>
+<span class="font-body-sm text-body-sm">Support</span>
+</a>
+</div>
+</aside>
+<!-- Main Canvas Area -->
+<main class="flex-1 ml-[240px] mr-[320px] overflow-y-auto p-container_padding bg-surface custom-scrollbar">
+<div class="max-w-5xl mx-auto space-y-6">
+<div class="flex items-center justify-between">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Performance réelle</h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Calculée à partir des résultats StatsBomb disponibles.</p>
+</div>
+<a class="px-3 py-2 rounded border border-secondary text-secondary hover:bg-secondary/10 transition-colors flex items-center gap-2 font-body-sm text-body-sm" href="/performance" title="Recharger les statistiques">
+<span class="material-symbols-outlined text-[18px]">refresh</span>
+Actualiser
+</a>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+<div class="bg-surface-container rounded-xl border border-outline-variant p-4"><div class="font-label-caps text-label-caps text-on-surface-variant">PICKS</div><div class="font-data-mono-lg text-data-mono-lg text-on-surface">{{ metrics.total_picks }}</div></div>
+<div class="bg-surface-container rounded-xl border border-outline-variant p-4"><div class="font-label-caps text-label-caps text-on-surface-variant">WIN RATE</div><div class="font-data-mono-lg text-data-mono-lg text-primary">{{ metrics.win_rate }}%</div></div>
+<div class="bg-surface-container rounded-xl border border-outline-variant p-4"><div class="font-label-caps text-label-caps text-on-surface-variant">W / D / L</div><div class="font-data-mono-lg text-data-mono-lg text-on-surface">{{ metrics.wins }} / {{ metrics.draws }} / {{ metrics.losses }}</div></div>
+<div class="bg-surface-container rounded-xl border border-outline-variant p-4"><div class="font-label-caps text-label-caps text-on-surface-variant">ROI SIMULÉ</div><div class="font-data-mono-lg text-data-mono-lg {% if metrics.roi >= 0 %}text-primary{% else %}text-error{% endif %}">{{ metrics.roi }}%</div></div>
+</div>
+<!-- Result Card (Simulated Bet) -->
+<div class="bg-surface-container rounded-xl border border-secondary/30 p-6 relative overflow-hidden group">
+<div class="absolute top-0 right-0 p-3">
+<span class="bg-tertiary-container text-on-tertiary px-2 py-1 rounded text-label-caps font-label-caps font-bold">SHARP MOVEMENT</span>
+</div>
+<div class="flex items-start justify-between mb-4">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-1">Los Angeles Lakers <span class="text-on-surface-variant">+4.5</span></h2>
+<p class="font-body-sm text-body-sm text-on-surface-variant">NBA • Moneyline / Spread Combo Sim</p>
+</div>
+</div>
+<div class="grid grid-cols-3 gap-4 border-t border-outline-variant pt-4 mt-2">
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">SIMULATED STAKE</div>
+<div class="font-data-mono-lg text-data-mono-lg text-on-surface">$100.00</div>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">PROJECTED EV</div>
+<div class="font-data-mono-lg text-data-mono-lg text-primary">+4.2%</div>
+</div>
+<div>
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">CONFIDENCE INTERVAL</div>
+<div class="flex items-center h-6 w-full bg-surface-dim rounded overflow-hidden border border-outline-variant relative">
+<div class="absolute left-[20%] right-[30%] top-0 bottom-0 bg-secondary/20 border-x border-secondary"></div>
+<div class="absolute left-[65%] top-0 bottom-0 w-1 bg-secondary z-10"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Visualization: Probability Curve -->
+<div class="bg-surface-container rounded-xl border border-outline-variant p-6">
+<div class="flex justify-between items-center mb-6">
+<h3 class="font-body-base text-body-base font-bold text-on-surface">Return Probability Distribution</h3>
+<div class="flex gap-2">
+<button class="px-2 py-1 text-label-caps font-label-caps bg-surface-highest rounded text-on-surface">PDF</button>
+<button class="px-2 py-1 text-label-caps font-label-caps text-on-surface-variant hover:text-on-surface">CDF</button>
+</div>
+</div>
+<!-- SVG Bell Curve Placeholder -->
+<div class="w-full h-48 relative flex items-end justify-center border-b border-l border-outline-variant pb-2 pl-2">
+<svg class="w-full h-full overflow-visible" preserveaspectratio="none" viewbox="0 0 500 200">
+<!-- Grid Lines -->
+<line stroke="#3c4a42" stroke-dasharray="4" stroke-width="1" x1="0" x2="500" y1="50" y2="50"></line>
+<line stroke="#3c4a42" stroke-dasharray="4" stroke-width="1" x1="0" x2="500" y1="100" y2="100"></line>
+<line stroke="#3c4a42" stroke-dasharray="4" stroke-width="1" x1="0" x2="500" y1="150" y2="150"></line>
+<!-- The Bell Curve -->
+<path d="M 0 200 C 150 200, 200 20, 250 20 C 300 20, 350 200, 500 200" fill="rgba(173, 198, 255, 0.1)" stroke="#adc6ff" stroke-width="3"></path>
+<!-- Mean line -->
+<line stroke="#adc6ff" stroke-dasharray="2" stroke-width="1" x1="250" x2="250" y1="20" y2="200"></line>
+</svg>
+<!-- X Axis Labels -->
+<div class="absolute -bottom-6 left-0 right-0 flex justify-between font-data-mono text-[10px] text-on-surface-variant">
+<span>-100% (Loss)</span>
+<span>0%</span>
+<span>+150% (Win)</span>
+</div>
+</div>
+</div>
+<!-- Comparison Grid -->
+<div class="grid grid-cols-2 gap-4">
+<!-- Single Bet -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-5 hover:border-secondary/50 transition-colors cursor-pointer">
+<div class="flex justify-between items-center border-b border-outline-variant pb-3 mb-3">
+<span class="font-body-base text-body-base font-bold">Single Event</span>
+<span class="material-symbols-outlined text-secondary">looks_one</span>
+</div>
+<div class="space-y-2 font-data-mono text-data-mono">
+<div class="flex justify-between text-on-surface-variant"><span>Win Rate</span> <span class="text-on-surface">{{ metrics.win_rate }}%</span></div>
+<div class="flex justify-between text-on-surface-variant"><span>Kelly Criterion</span> <span class="text-on-surface">1.2%</span></div>
+<div class="flex justify-between text-on-surface-variant"><span>Max Drawdown</span> <span class="text-error">-15%</span></div>
+</div>
+</div>
+<!-- 3-Leg Parlay -->
+<div class="bg-surface-container-low border border-outline-variant rounded-xl p-5 hover:border-secondary/50 transition-colors cursor-pointer opacity-70">
+<div class="flex justify-between items-center border-b border-outline-variant pb-3 mb-3">
+<span class="font-body-base text-body-base font-bold">3-Leg Correlated</span>
+<span class="material-symbols-outlined text-on-surface-variant">layers</span>
+</div>
+<div class="space-y-2 font-data-mono text-data-mono">
+<div class="flex justify-between text-on-surface-variant"><span>Win Rate (Est)</span> <span class="text-on-surface">18.5%</span></div>
+<div class="flex justify-between text-on-surface-variant"><span>Kelly Criterion</span> <span class="text-on-surface">0.4%</span></div>
+<div class="flex justify-between text-on-surface-variant"><span>Max Drawdown</span> <span class="text-error">-42%</span></div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Simulation Slip (Right Panel) -->
+<aside class="fixed right-0 top-16 bottom-0 w-slip_panel_width z-40 bg-surface-container-low border-l border-secondary/40 flex flex-col shadow-[-4px_0_24px_rgba(173,198,255,0.08)]">
+<!-- Slip Header (Simulation State) -->
+<div class="bg-secondary-container/20 border-b border-secondary/30 p-4 flex items-center justify-between">
+<div class="flex items-center gap-2 text-secondary">
+<span class="material-symbols-outlined">tune</span>
+<h3 class="font-body-base text-body-base font-bold tracking-wide uppercase">Simulation Slip</h3>
+</div>
+<button class="text-secondary hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined">delete_sweep</span>
+</button>
+</div>
+<!-- Slip Content -->
+<div class="flex-1 overflow-y-auto p-4 space-y-4">
+<!-- Active Sim Item -->
+<div class="bg-surface-container rounded border border-secondary/20 p-3">
+<div class="flex justify-between items-start mb-2">
+<div class="font-body-sm text-body-sm font-bold text-on-surface">LAL +4.5</div>
+<div class="font-data-mono text-data-mono text-on-surface-variant">-110</div>
+</div>
+<div class="mt-3">
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1">VIRTUAL STAKE</label>
+<div class="flex bg-surface-dim border border-outline focus-within:border-secondary rounded overflow-hidden">
+<span class="px-3 py-2 text-on-surface-variant font-data-mono">$</span>
+<input class="w-full bg-transparent border-none text-on-surface font-data-mono focus:ring-0 p-2 pl-0" type="number" value="100.00"/>
+</div>
+</div>
+</div>
+<!-- Sandbox Controls -->
+<div class="pt-4 border-t border-outline-variant space-y-3">
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Market Shock Test</span>
+<div class="w-8 h-4 bg-surface-dim rounded-full relative cursor-pointer border border-outline">
+<div class="absolute left-0.5 top-0.5 w-3 h-3 bg-on-surface-variant rounded-full"></div>
+</div>
+</div>
+<div class="flex justify-between items-center">
+<span class="font-body-sm text-body-sm text-on-surface-variant">Time Decay Mode</span>
+<div class="w-8 h-4 bg-secondary/30 rounded-full relative cursor-pointer border border-secondary">
+<div class="absolute right-0.5 top-0.5 w-3 h-3 bg-secondary rounded-full"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Slip Footer / CTA -->
+<div class="p-4 bg-surface-container border-t border-outline-variant space-y-3">
+<div class="flex justify-between font-data-mono text-data-mono">
+<span class="text-on-surface-variant">Projected PnL</span>
+<span class="text-primary">+$90.91</span>
+</div>
+<!-- Transition CTA -->
+<button class="w-full py-3 rounded-lg bg-primary-container text-on-primary-container font-body-base text-body-base font-bold shadow-lg hover:bg-primary transition-colors flex items-center justify-center gap-2 group">
+<span class="material-symbols-outlined group-hover:animate-pulse">flash_on</span>
+                        COMMIT TO LIVE
+                    </button>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant mt-2">Will execute immediately via API</p>
+</div>
+</aside>
+</div>
+</div>
+</body></html>

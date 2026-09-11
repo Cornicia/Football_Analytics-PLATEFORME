@@ -1,0 +1,22 @@
+# Python
+.venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+
+# Secrets and local configuration
+.env
+.env.*
+!.env.example
+
+# Runtime output
+*.log
+
+# Jupyter generated files
+.ipynb_checkpoints/
+notebooks/downloaded_files/
+
+# Editor and OS files
+.vscode/
+.DS_Store
+Thumbs.db

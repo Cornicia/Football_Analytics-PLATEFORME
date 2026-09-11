@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Recommendation Detail Screen - Alpha Bot</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: Geist, Inter, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&amp;family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&amp;family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "primary-container": "#10b981",
+                      "on-secondary-container": "#e6ecff",
+                      "outline-variant": "#3c4a42",
+                      "secondary-container": "#0566d9",
+                      "surface-container": "#171f33",
+                      "inverse-surface": "#dae2fd",
+                      "on-tertiary": "#472a00",
+                      "surface-container-low": "#131b2e",
+                      "on-surface-variant": "#bbcabf",
+                      "surface-container-highest": "#2d3449",
+                      "surface-dim": "#0b1326",
+                      "primary": "#4edea3",
+                      "on-secondary": "#002e6a",
+                      "on-surface": "#dae2fd",
+                      "primary-fixed": "#6ffbbe",
+                      "surface-bright": "#31394d",
+                      "secondary": "#adc6ff",
+                      "primary-fixed-dim": "#4edea3",
+                      "on-secondary-fixed-variant": "#004395",
+                      "tertiary-container": "#e29100",
+                      "on-primary": "#003824",
+                      "background": "#0b1326",
+                      "surface-container-high": "#222a3d",
+                      "on-error": "#690005",
+                      "inverse-on-surface": "#283044",
+                      "error-container": "#93000a",
+                      "on-error-container": "#ffdad6",
+                      "surface-tint": "#4edea3",
+                      "inverse-primary": "#006c49",
+                      "on-tertiary-fixed-variant": "#653e00",
+                      "error": "#ffb4ab",
+                      "tertiary-fixed": "#ffddb8",
+                      "on-primary-container": "#00422b",
+                      "surface-variant": "#2d3449",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-primary-fixed": "#002113",
+                      "on-tertiary-fixed": "#2a1700",
+                      "on-secondary-fixed": "#001a42",
+                      "secondary-fixed": "#d8e2ff",
+                      "surface": "#0b1326",
+                      "surface-container-lowest": "#060e20",
+                      "outline": "#86948a",
+                      "tertiary-fixed-dim": "#ffb95f",
+                      "secondary-fixed-dim": "#adc6ff",
+                      "on-tertiary-container": "#523200",
+                      "tertiary": "#ffb95f",
+                      "on-background": "#dae2fd"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.125rem",
+                      "lg": "0.25rem",
+                      "xl": "0.5rem",
+                      "full": "0.75rem"
+              },
+              "spacing": {
+                      "stack_gap_sm": "8px",
+                      "gutter": "16px",
+                      "stack_gap_md": "16px",
+                      "slip_panel_width": "320px",
+                      "container_padding": "24px",
+                      "sidebar_width": "240px"
+              },
+              "fontFamily": {
+                      "display-lg": [
+                              "Geist"
+                      ],
+                      "body-base": [
+                              "Inter"
+                      ],
+                      "body-sm": [
+                              "Inter"
+                      ],
+                      "label-caps": [
+                              "Inter"
+                      ],
+                      "data-mono": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-md": [
+                              "Geist"
+                      ],
+                      "data-mono-lg": [
+                              "JetBrains Mono"
+                      ]
+              },
+              "fontSize": {
+                      "display-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-base": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "body-sm": [
+                              "12px",
+                              {
+                                      "lineHeight": "16px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "label-caps": [
+                              "11px",
+                              {
+                                      "lineHeight": "16px",
+                                      "letterSpacing": "0.05em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "data-mono": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "600"
+                              }
+                      ],
+                      "data-mono-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "600"
+                              }
+                      ]
+              }
+            },
+          }
+        }
+    </script>
+<style>
+        /* Custom animations for interactions */
+        @keyframes pulse-border-blue {
+            0% { border-color: rgba(5, 102, 217, 0.2); box-shadow: inset 0 0 0 1px rgba(5, 102, 217, 0); }
+            50% { border-color: rgba(5, 102, 217, 0.8); box-shadow: inset 0 0 10px 1px rgba(5, 102, 217, 0.3); }
+            100% { border-color: rgba(5, 102, 217, 0.2); box-shadow: inset 0 0 0 1px rgba(5, 102, 217, 0); }
+        }
+        
+        .sim-mode-active {
+            animation: pulse-border-blue 2s infinite;
+        }
+
+        /* Hide scrollbar for cleaner look */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: theme('colors.background');
+        }
+        ::-webkit-scrollbar-thumb {
+            background: theme('colors.surface-variant');
+            border-radius: theme('borderRadius.full');
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background font-body-base min-h-screen overflow-x-hidden flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface-container-low dark:bg-surface-container-low border-b border-outline-variant flat no shadows">
+<!-- Logo & Search area -->
+<div class="flex items-center gap-6">
+<span class="font-display-lg text-display-lg font-bold text-primary tracking-tighter">ALPHA BOT</span>
+<!-- Search Bar placeholder -->
+<div class="hidden md:flex items-center bg-surface-container px-3 py-1.5 rounded border border-outline-variant text-on-surface-variant focus-within:border-primary transition-colors">
+<span class="material-symbols-outlined text-sm mr-2">search</span>
+<input class="bg-transparent border-none focus:ring-0 text-body-sm font-body-sm w-48 text-on-surface placeholder:text-on-surface-variant outline-none" placeholder="Search markets..." type="text"/>
+</div>
+</div>
+<!-- Navigation Links (Center) -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Markets</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors px-2 py-1 rounded" href="#">Liquidity</a>
+<a class="text-on-surface-variant font-medium hover:bg-surface-container-high transition-colors px-2 py-1 rounded" href="#">Volatility</a>
+</nav>
+<!-- Trailing Actions -->
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 border-r border-outline-variant pr-4">
+<button class="bg-primary text-on-primary font-data-mono text-data-mono px-3 py-1.5 rounded hover:bg-surface-container-high transition-colors scale-95 active:scale-90 transition-transform">Execute Trade</button>
+<button class="text-error border border-error font-data-mono text-data-mono px-3 py-1.5 rounded hover:bg-error-container hover:text-on-error-container transition-colors scale-95 active:scale-90 transition-transform">Pause Bot</button>
+</div>
+<div class="flex items-center gap-3 pl-2 text-on-surface-variant">
+<button class="hover:text-on-surface transition-colors scale-95 active:scale-90 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined">notifications</span>
+</button>
+<button class="hover:text-on-surface transition-colors scale-95 active:scale-90 transition-transform flex items-center justify-center">
+<span class="material-symbols-outlined">account_balance_wallet</span>
+</button>
+<img alt="User Profile Avatar" class="w-8 h-8 rounded-full border border-outline-variant object-cover ml-2" data-alt="A small, circular avatar portrait of a stylized digital agent or user, minimalist design, dark background with subtle neon green outlines." src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_pEtTPvRbNheQH_c9ji7yS00r4sf65-Htrp9JuTGpHE3e7YJZk1jQnsqj9BvrpTmKe484Oek6kEEM7pEgoD0oAgAokqkFUOyUqvkJMA-lQK78H-JkCvxe_Ylr34pPWRrV6Oe9MEtpfT-1UNSpQ9X_4nk-ZUI77WBHReZu9JXXO9BZTJ2GIAxtP1idvZ8kRnhXdbYQiIVK32oITKyIxf0uXokk47Gs2-dH2hoIIygXPkpBvduPT0rT"/>
+</div>
+</div>
+</header>
+<!-- App Body Layout -->
+<div class="flex pt-16 flex-1 h-screen w-full">
+<!-- SideNavBar -->
+<nav class="fixed left-0 top-16 bottom-0 w-sidebar_width z-40 flex flex-col py-stack_gap_md bg-surface-container dark:bg-surface-container border-r border-outline-variant flat no shadows">
+<!-- Header -->
+<div class="px-6 mb-8 flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-surface-container-highest border border-outline flex items-center justify-center">
+<img alt="System Status Icon" class="w-6 h-6 object-contain" data-alt="A small, stylized system status icon resembling a glowing server rack or AI core, minimalist green line art on dark background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB0ao0IUlajgeCloXoCSxY9o-L1yhB4TnFJpzhnrMhS6tErgaMYXi3XLss-y_saBiFE9iDbLI_kQwUexupyx2tZFLvspi2GPyIr0rVvrFGojE0Ql0R17H4a9PKEF7zDd_KyNf7xI72N_H5P73cw0kLY1AbyHzP_Lkbleyj3qUaE1YzMhI2RNb-A_l5W8pFg83nXdp1-bDtWKPmAK4Aq2XA7bVS37a1kQA_8zxC8sQq32zJd0g8fJa6M"/>
+</div>
+<div>
+<h2 class="font-headline-md text-headline-md text-primary leading-none">STRAT-01</h2>
+<span class="font-label-caps text-label-caps text-on-surface-variant">Live Engine</span>
+</div>
+</div>
+<!-- Primary Tabs -->
+<div class="flex flex-col gap-1 flex-1">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all mx-2 px-4 py-3 flex items-center gap-3 rounded-xl duration-200" href="/">
+<span class="material-symbols-outlined">dashboard</span>
+<span class="font-body-base text-body-base font-medium">Dashboard</span>
+</a>
+<a class="bg-primary-container text-on-primary-container rounded-xl mx-2 px-4 py-3 flex items-center gap-3 translate-x-1 duration-200" href="/recherche">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">explore</span>
+<span class="font-body-base text-body-base">Discovery</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all mx-2 px-4 py-3 flex items-center gap-3 rounded-xl duration-200" href="/sandbox">
+<span class="material-symbols-outlined">science</span>
+<span class="font-body-base text-body-base">Simulation Lab</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all mx-2 px-4 py-3 flex items-center gap-3 rounded-xl duration-200" href="/performance">
+<span class="material-symbols-outlined">monitoring</span>
+<span class="font-body-base text-body-base">Performance</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all mx-2 px-4 py-3 flex items-center gap-3 rounded-xl duration-200" href="#">
+<span class="material-symbols-outlined">settings</span>
+<span class="font-body-base text-body-base">Settings</span>
+</a>
+</div>
+<!-- CTA -->
+<div class="px-4 my-4">
+<button class="w-full py-2.5 bg-surface-container-highest text-primary border border-primary font-data-mono text-data-mono rounded hover:bg-surface-container-high transition-colors scale-95 active:scale-90 flex justify-center items-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span> New Strategy
+                </button>
+</div>
+<!-- Footer Tabs -->
+<div class="flex flex-col gap-1 border-t border-outline-variant pt-4 mt-auto">
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all mx-2 px-4 py-3 flex items-center gap-3 rounded-xl duration-200" href="#">
+<span class="material-symbols-outlined text-sm">help</span>
+<span class="font-body-sm text-body-sm">Docs</span>
+</a>
+<a class="text-on-surface-variant hover:text-on-surface hover:bg-surface-container-highest transition-all mx-2 px-4 py-3 flex items-center gap-3 rounded-xl duration-200" href="#">
+<span class="material-symbols-outlined text-sm">contact_support</span>
+<span class="font-body-sm text-body-sm">Support</span>
+</a>
+</div>
+</nav>
+<!-- Main Workspace (Center + Right Panel) -->
+<div class="ml-[240px] flex w-[calc(100%-240px)] h-full overflow-hidden">
+<!-- Deep Research Content (Center) -->
+<main class="flex-1 p-container_padding overflow-y-auto flex flex-col gap-stack_gap_md bg-background">
+<!-- Breadcrumb / Context -->
+<div class="flex items-center gap-2 text-on-surface-variant font-label-caps text-label-caps">
+<span class="material-symbols-outlined text-[14px]">arrow_back</span>
+<a class="hover:text-primary transition-colors" href="#">DASHBOARD</a>
+<span class="text-outline">/</span>
+<span class="text-on-surface">RECOMMENDATION DETAIL</span>
+</div>
+<!-- Dynamic StatsBomb Data Explorer -->
+<section class="bg-surface-container border border-outline-variant border-t-2 border-t-primary p-6 rounded-lg shadow-sm flex flex-col gap-4">
+<div class="flex justify-between items-start gap-4">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">STATSBOMB OPEN DATA</span>
+<h1 class="font-headline-md text-headline-md text-on-surface">Competitions disponibles</h1>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-1">Donnees chargees depuis l'API StatsBomb gratuite, sans Chrome ni scraping FBref.</p>
+</div>
+<a class="font-data-mono text-data-mono text-primary hover:text-secondary transition-colors" href="/api/competitions">JSON API</a>
+</div>
+{% if stats_error %}
+<div class="bg-error-container/20 border border-error-container rounded p-4">
+<div class="font-data-mono text-data-mono text-error">Source indisponible</div>
+<p class="font-body-sm text-body-sm text-on-error-container mt-1">{{ stats_error }}</p>
+</div>
+{% endif %}
+<div class="bg-surface-container-low rounded border border-outline-variant overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-normal">COMPETITION</th>
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-normal">SAISON</th>
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-normal">PAYS</th>
+<th class="py-2 px-3 font-label-caps text-label-caps text-on-surface-variant font-normal text-right">MATCHS</th>
+</tr>
+</thead>
+<tbody>
+{% for competition in competitions %}
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors">
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface">{{ competition.competition_name }}</td>
+<td class="py-3 px-3 font-data-mono text-data-mono text-on-surface-variant">{{ competition.season_name }}</td>
+<td class="py-3 px-3 font-body-sm text-body-sm text-on-surface-variant">{{ competition.country_name }}</td>
+<td class="py-3 px-3 text-right">
+<a class="font-data-mono text-data-mono text-primary hover:text-secondary transition-colors" href="/api/matches/{{ competition.competition_id }}/{{ competition.season_id }}">ouvrir</a>
+</td>
+</tr>
+{% else %}
+<tr>
+<td class="py-4 px-3 font-body-sm text-body-sm text-on-surface-variant text-center" colspan="4">Aucune competition disponible pour le moment.</td>
+</tr>
+{% endfor %}
+</tbody>
+</table>
+</div>
+</section>
+<!-- Primary Header Card (Live Signal - Emerald Top Border) -->
+<section class="bg-surface-container border border-outline-variant border-t-2 border-t-primary p-6 rounded-lg shadow-sm flex flex-col gap-4 relative overflow-hidden">
+<div class="absolute top-0 right-0 bg-surface-container-low px-4 py-2 border-l border-b border-outline-variant rounded-bl flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+<span class="font-data-mono text-body-sm text-primary">LIVE SIGNAL</span>
+</div>
+<div class="flex justify-between items-start mt-2">
+<div>
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">MATCHUP (NBA)</span>
+<h1 class="font-headline-md text-headline-md text-on-surface">Lakers vs Warriors</h1>
+</div>
+<div class="text-right">
+<span class="font-label-caps text-label-caps text-on-surface-variant block mb-1">SYSTEM PICK</span>
+<div class="font-display-lg text-display-lg text-primary tracking-tighter">LAKERS +4.5</div>
+</div>
+</div>
+<div class="flex gap-2 mt-2">
+<span class="bg-tertiary-container text-on-tertiary-container font-label-caps text-label-caps px-2 py-1 rounded w-max flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">trending_up</span> SHARP MOVEMENT
+                        </span>
+<span class="bg-surface-container-highest border border-outline text-on-surface font-label-caps text-label-caps px-2 py-1 rounded w-max flex items-center gap-1">
+<span class="material-symbols-outlined text-[12px]">bolt</span> HIGH VOLATILITY
+                        </span>
+</div>
+</section>
+<!-- 2-Column Layout for Content -->
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-stack_gap_md">
+<!-- Reasoning Module -->
+<section class="bg-surface-container border border-outline-variant p-6 rounded-lg flex flex-col gap-4">
+<div class="flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary">psychology</span>
+<h3 class="font-data-mono-lg text-data-mono-lg text-on-surface">Algorithmic Reasoning</h3>
+</div>
+<div class="font-body-base text-body-base text-on-surface-variant leading-relaxed">
+<p class="mb-3">
+                                The recommendation engine has identified a highly asymmetric value proposition on <strong>Lakers +4.5</strong>. This pick is primarily driven by a stark divergence in recent offensive efficiency metrics against transition defense profiles.
+                            </p>
+<p>
+                                Over the last 10 games, the Lakers have operated in the 92nd percentile for half-court offensive efficiency, while the Warriors' transition defense has regressed to the 34th percentile. Furthermore, the sharp money distribution indicates institutional resistance at the +4.0 line, creating artificial inflation on the current spread.
+                            </p>
+</div>
+</section>
+<!-- Comparison Engine -->
+<section class="bg-surface-container border border-outline-variant p-6 rounded-lg flex flex-col gap-4">
+<div class="flex items-center gap-2 border-b border-outline-variant pb-2">
+<span class="material-symbols-outlined text-primary">history</span>
+<h3 class="font-data-mono-lg text-data-mono-lg text-on-surface">Historical Match Profile</h3>
+</div>
+<div class="bg-surface-container-low rounded border border-outline-variant p-4">
+<div class="flex justify-between items-end mb-4">
+<span class="font-body-base text-body-base text-on-surface-variant">Similar Scenarios Evaluated</span>
+<span class="font-data-mono text-headline-md text-on-surface">N=142</span>
+</div>
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant">
+<th class="py-2 font-label-caps text-label-caps text-on-surface-variant font-normal">METRIC</th>
+<th class="py-2 font-label-caps text-label-caps text-on-surface-variant font-normal text-right">BOT RECORD</th>
+<th class="py-2 font-label-caps text-label-caps text-on-surface-variant font-normal text-right">ROI</th>
+</tr>
+</thead>
+<tbody>
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors">
+<td class="py-3 font-body-sm text-body-sm text-on-surface">Away Underdog (+4 to +6)</td>
+<td class="py-3 font-data-mono text-data-mono text-primary text-right">78% Win</td>
+<td class="py-3 font-data-mono text-data-mono text-primary text-right">+12.4%</td>
+</tr>
+<tr class="border-b border-outline-variant/50 hover:bg-surface-container-high transition-colors">
+<td class="py-3 font-body-sm text-body-sm text-on-surface">Sharp Money Alignment</td>
+<td class="py-3 font-data-mono text-data-mono text-primary text-right">62% Win</td>
+<td class="py-3 font-data-mono text-data-mono text-primary text-right">+5.8%</td>
+</tr>
+<tr class="hover:bg-surface-container-high transition-colors">
+<td class="py-3 font-body-sm text-body-sm text-on-surface">High Volatility Context</td>
+<td class="py-3 font-data-mono text-data-mono text-on-surface-variant text-right">51% Win</td>
+<td class="py-3 font-data-mono text-data-mono text-error text-right">-1.2%</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</div>
+<!-- Interactive Chart (Odds Movement) -->
+<section class="bg-surface-container border border-outline-variant p-6 rounded-lg flex flex-col gap-4">
+<div class="flex justify-between items-center border-b border-outline-variant pb-2">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">timeline</span>
+<h3 class="font-data-mono-lg text-data-mono-lg text-on-surface">Odds Movement (24H)</h3>
+</div>
+<div class="flex gap-2">
+<button class="bg-surface-container-highest px-2 py-1 rounded text-on-surface font-label-caps text-label-caps border border-outline">1H</button>
+<button class="bg-primary-container text-on-primary-container px-2 py-1 rounded font-label-caps text-label-caps">24H</button>
+<button class="bg-surface-container-highest px-2 py-1 rounded text-on-surface-variant font-label-caps text-label-caps border border-outline-variant">7D</button>
+</div>
+</div>
+<div class="w-full h-64 bg-surface-container-low rounded border border-outline-variant relative overflow-hidden flex flex-col p-4 justify-between">
+<!-- Simulated Chart Y-Axis / Grid -->
+<div class="absolute inset-0 flex flex-col justify-between py-6 px-12 pointer-events-none opacity-20">
+<div class="border-b border-on-surface-variant w-full"></div>
+<div class="border-b border-on-surface-variant w-full"></div>
+<div class="border-b border-on-surface-variant w-full"></div>
+<div class="border-b border-on-surface-variant w-full"></div>
+</div>
+<!-- Y-Axis Labels -->
+<div class="absolute left-2 top-6 bottom-6 flex flex-col justify-between font-data-mono text-[10px] text-on-surface-variant">
+<span>+5.5</span>
+<span>+5.0</span>
+<span>+4.5</span>
+<span>+4.0</span>
+</div>
+<!-- Simulated Line Graph Path (SVG) -->
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 100">
+<!-- Glow path -->
+<path d="M 10 80 Q 25 80 40 50 T 70 50 T 95 25" fill="none" filter="blur(4px)" opacity="0.3" stroke="theme('colors.primary')" stroke-width="4"></path>
+<!-- Main path -->
+<path d="M 10 80 Q 25 80 40 50 T 70 50 T 95 25" fill="none" stroke="theme('colors.primary')" stroke-width="2"></path>
+<!-- Data Points -->
+<circle cx="10" cy="80" fill="theme('colors.surface-container')" r="3" stroke="theme('colors.primary')" stroke-width="1.5"></circle>
+<circle cx="40" cy="50" fill="theme('colors.surface-container')" r="3" stroke="theme('colors.primary')" stroke-width="1.5"></circle>
+<circle cx="70" cy="50" fill="theme('colors.surface-container')" r="3" stroke="theme('colors.primary')" stroke-width="1.5"></circle>
+<circle cx="95" cy="25" fill="theme('colors.primary')" r="3"></circle>
+</svg>
+<!-- Data Point Tooltip (Simulated Hover State) -->
+<div class="absolute top-[20%] right-[3%] bg-surface-container-highest border border-outline px-3 py-2 rounded shadow-lg pointer-events-none">
+<div class="font-label-caps text-label-caps text-on-surface-variant mb-1">CURRENT LINE</div>
+<div class="font-data-mono text-data-mono text-on-surface">+4.5 @ -110</div>
+</div>
+<!-- X-Axis Labels -->
+<div class="absolute bottom-1 left-12 right-12 flex justify-between font-data-mono text-[10px] text-on-surface-variant mt-auto">
+<span>14:00</span>
+<span>18:00</span>
+<span>22:00</span>
+<span>02:00 (Now)</span>
+</div>
+</div>
+</section>
+<!-- Risk Factors -->
+<section class="bg-error-container/20 border border-error-container p-6 rounded-lg flex items-start gap-4">
+<span class="material-symbols-outlined text-error mt-1" style="font-variation-settings: 'FILL' 1;">warning</span>
+<div>
+<h3 class="font-data-mono-lg text-data-mono-lg text-error mb-2">Red Flag: Roster Instability</h3>
+<p class="font-body-base text-body-base text-on-error-container">
+                            Starting Power Forward (A. Davis) is currently listed as "Questionable" due to an ankle sprain. If downgraded to "Out", the projected half-court offensive efficiency drops by 14%, severely diminishing the calculated edge of this spread. Recommendation is contingent on confirmation of active status.
+                        </p>
+</div>
+</section>
+<div class="h-8"></div> <!-- Bottom Spacing -->
+</main>
+<!-- Fixed Bet/Sim Slip (Right Panel) -->
+<aside class="w-slip_panel_width bg-surface-container border-l border-outline-variant flex flex-col transition-all duration-500 z-10" id="action-panel">
+<!-- Panel Header -->
+<div class="h-16 border-b border-outline-variant flex items-center px-6 transition-colors duration-300" id="panel-header">
+<span class="material-symbols-outlined mr-2 text-on-surface-variant">account_balance_wallet</span>
+<h2 class="font-data-mono-lg text-data-mono-lg text-on-surface">Action Desk</h2>
+</div>
+<div class="p-6 flex flex-col flex-1 gap-6">
+<!-- Selected Pick Summary -->
+<div class="bg-surface-container-low border border-outline-variant rounded p-4">
+<div class="flex justify-between items-start mb-2">
+<span class="font-label-caps text-label-caps text-on-surface-variant">SELECTED ASSET</span>
+<span class="material-symbols-outlined text-[16px] text-primary cursor-pointer hover:text-on-surface">close</span>
+</div>
+<div class="font-body-base text-body-base text-on-surface mb-1">LAL @ GSW</div>
+<div class="flex justify-between items-end">
+<span class="font-data-mono-lg text-data-mono-lg text-primary">LAL +4.5</span>
+<span class="font-data-mono text-data-mono text-on-surface-variant">-110</span>
+</div>
+</div>
+<!-- Input Fields -->
+<div class="flex flex-col gap-4">
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase">Unit Sizing</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 font-data-mono text-on-surface-variant">$</span>
+<input class="w-full bg-surface-dim border border-outline-variant text-on-surface font-data-mono rounded focus:border-primary focus:ring-1 focus:ring-primary pl-7 py-2 outline-none transition-colors" type="number" value="500"/>
+</div>
+</div>
+<div>
+<label class="block font-label-caps text-label-caps text-on-surface-variant mb-1 uppercase">Target ROI Model</label>
+<select class="w-full bg-surface-dim border border-outline-variant text-on-surface font-data-mono rounded focus:border-primary focus:ring-1 focus:ring-primary px-3 py-2 outline-none appearance-none cursor-pointer">
+<option>Aggressive (Kelly)</option>
+<option selected="">Standard (Flat)</option>
+<option>Conservative</option>
+</select>
+</div>
+</div>
+<!-- Confidence Meter -->
+<div class="mt-4">
+<div class="flex justify-between mb-1">
+<span class="font-label-caps text-label-caps text-on-surface-variant">MODEL CONFIDENCE</span>
+<span class="font-data-mono text-body-sm text-primary">82%</span>
+</div>
+<div class="h-2 w-full bg-surface-container-high rounded-full overflow-hidden">
+<div class="h-full bg-primary rounded-full w-[82%] relative">
+<!-- Marker indicating market consensus -->
+<div class="absolute right-4 top-0 bottom-0 w-1 bg-surface-container-lowest"></div>
+</div>
+</div>
+<div class="flex justify-between mt-1 px-1">
+<span class="font-data-mono text-[10px] text-on-surface-variant invisible">0</span>
+<span class="font-data-mono text-[10px] text-on-surface-variant">Market (71%)</span>
+</div>
+</div>
+<div class="mt-auto flex flex-col gap-3">
+<div class="flex justify-between border-t border-outline-variant pt-4 mb-2">
+<span class="font-body-base text-body-base text-on-surface-variant">To Win</span>
+<span class="font-data-mono-lg text-data-mono-lg text-on-surface">$454.54</span>
+</div>
+<!-- Primary Action (Triggers Mode Shift) -->
+<button class="w-full py-4 bg-secondary-container text-on-secondary-container font-data-mono-lg text-data-mono-lg rounded hover:opacity-90 flex justify-center items-center gap-2 transition-all duration-300 shadow-[0_0_15px_rgba(5,102,217,0.3)]" id="sim-trigger-btn">
+<span class="material-symbols-outlined text-[20px]">science</span>
+                            Run Simulation
+                        </button>
+<button class="w-full py-3 bg-surface-container-high text-on-surface font-data-mono text-data-mono rounded hover:bg-surface-container-highest transition-colors flex justify-center items-center border border-outline-variant">
+                            Execute Live Trade
+                        </button>
+</div>
+</div>
+</aside>
+</div>
+</div>
+<!-- Micro-interaction Scripts -->
+<script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const simBtn = document.getElementById('sim-trigger-btn');
+            const actionPanel = document.getElementById('action-panel');
+            const panelHeader = document.getElementById('panel-header');
+            
+            let simModeActive = false;
+
+            simBtn.addEventListener('click', () => {
+                simModeActive = !simModeActive;
+                
+                if (simModeActive) {
+                    // Flash effect on button
+                    simBtn.classList.add('bg-secondary', 'text-on-secondary');
+                    setTimeout(() => simBtn.classList.remove('bg-secondary', 'text-on-secondary'), 150);
+
+                    // Alter button text
+                    simBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">stop_circle</span> Halt Simulation`;
+                    simBtn.classList.replace('bg-secondary-container', 'bg-error-container');
+                    simBtn.classList.replace('text-on-secondary-container', 'text-on-error-container');
+                    simBtn.classList.remove('shadow-[0_0_15px_rgba(5,102,217,0.3)]');
+
+                    // Global visual mode shift (Electric Blue Sandbox)
+                    actionPanel.classList.add('sim-mode-active');
+                    panelHeader.classList.add('bg-secondary-container', 'border-secondary-container');
+                    panelHeader.querySelector('h2').classList.replace('text-on-surface', 'text-on-secondary-container');
+                    panelHeader.querySelector('span').classList.replace('text-on-surface-variant', 'text-on-secondary-container');
+                    panelHeader.querySelector('h2').innerText = "Simulation Sandbox";
+                } else {
+                    // Revert
+                    simBtn.innerHTML = `<span class="material-symbols-outlined text-[20px]">science</span> Run Simulation`;
+                    simBtn.classList.replace('bg-error-container', 'bg-secondary-container');
+                    simBtn.classList.replace('text-on-error-container', 'text-on-secondary-container');
+                    simBtn.classList.add('shadow-[0_0_15px_rgba(5,102,217,0.3)]');
+
+                    actionPanel.classList.remove('sim-mode-active');
+                    panelHeader.classList.remove('bg-secondary-container', 'border-secondary-container');
+                    panelHeader.querySelector('h2').classList.replace('text-on-secondary-container', 'text-on-surface');
+                    panelHeader.querySelector('span').classList.replace('text-on-secondary-container', 'text-on-surface-variant');
+                    panelHeader.querySelector('h2').innerText = "Action Desk";
+                }
+            });
+        });
+    </script>
+</body></html>
